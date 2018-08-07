@@ -21,6 +21,13 @@ class CalendarEventSerializer(serializers.ModelSerializer):
         exclude = ()
 
     def is_valid_times(self):
+        """
+            Checks if times exact start of hour
+
+            NOTE: It's sensitivity doesn't cover seconds
+
+            @returns Boolean: Stating whether times are valid
+        """
         if self.validated_data['start_time'].minute != 0 or self.validated_data['end_time'].minute != 0:
             return False
         return True

@@ -27,7 +27,7 @@ class Person(models.Model):
         return "{username}".format(username=self.username)
 
 
-class CalenderEvent(models.Model):
+class CalendarEvent(models.Model):
     person = models.ForeignKey(Person, blank=False, null=False)
     start_time = models.DateTimeField(verbose_name="Start Time", blank=False, null=False)
     end_time = models.DateTimeField(verbose_name="End Time", blank=False, null=False)
@@ -52,7 +52,7 @@ class CalenderEvent(models.Model):
         temp_start_time = max(self.start_time, start_time) 
         temp_end_time = min(self.end_time, end_time)
         while temp_start_time < temp_end_time:
-            slots.append((temp_start_time, temp_start_time + timedelta(hours=1)))
+            slots.append((temp_start_time.isoformat(), (temp_start_time + timedelta(hours=1)).isoformat() ))
             temp_start_time += timedelta(hours=1)
 
         return slots
